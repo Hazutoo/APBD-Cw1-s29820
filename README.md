@@ -37,7 +37,19 @@ dotnet run
 ```
 
 Po uruchomieniu aplikacja wykona scenariusz demonstracyjny i wypisze wynik w konsoli.
-Scenariusz pokazuje m.in. listę dostępnego sprzętu, poprawne wypożyczenie, próbę wypożyczenia niedostępnego sprzętu, przekroczenie limitu wypożyczeń, aktywne wypożyczenia użytkownika, oznaczenie sprzętu jako niedostępnego, przeterminowane wypożyczenia oraz raport końcowy.
+
+Scenariusz pokazuje m.in.:
+- listę użytkowników i sprzętu,
+- listę dostępnego sprzętu,
+- poprawne wypożyczenie,
+- próbę wypożyczenia niedostępnego sprzętu,
+- próbę przekroczenia limitu wypożyczeń,
+- aktywne wypożyczenia użytkownika,
+- oznaczenie sprzętu jako niedostępnego,
+- zwrot w terminie,
+- zwrot po terminie z naliczoną karą,
+- listę przeterminowanych wypożyczeń,
+- raport końcowy.
 
 ---
 
@@ -71,8 +83,11 @@ Zawiera `InMemoryStore`, czyli prosty magazyn danych w pamięci aplikacji.
 
 ### `Exceptions`
 Zawiera własne wyjątki biznesowe:
+
 - `BusinessRuleException`
 - `EquipmentNotAvailableException`
+- `EquipmentNotFoundException`
+- `UserNotFoundException`
 - `UserLimitExceededException`
 - `RentalNotFoundException`
 
