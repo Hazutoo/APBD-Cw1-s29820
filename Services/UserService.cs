@@ -1,10 +1,10 @@
 using APBD_Cw1_s29820.Data;
 using APBD_Cw1_s29820.Domain.Users;
+using APBD_Cw1_s29820.Exceptions;
 
 namespace APBD_Cw1_s29820.Services;
 
-public class 
-    UserService : IUserService
+public class UserService : IUserService
 {
     private readonly InMemoryStore _store;
 
@@ -34,7 +34,7 @@ public class
 
         if (user is null)
         {
-            throw new KeyNotFoundException($"User with id {id} was not found.");
+            throw new UserNotFoundException($"User with id {id} was not found.");
         }
 
         return user;

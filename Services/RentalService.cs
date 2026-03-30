@@ -62,7 +62,7 @@ public class RentalService : IRentalService
     public void ReturnEquipment(int rentalId, DateTime returnedAt)
     {
         Rental rental = _store.Rentals.FirstOrDefault(r => r.Id == rentalId)
-            ?? throw new RentalNotFoundException($"Rental with id {rentalId} was not found.");
+                        ?? throw new RentalNotFoundException($"Rental with id {rentalId} was not found.");
 
         if (rental.IsReturned)
         {
@@ -101,12 +101,12 @@ public class RentalService : IRentalService
     private User GetUserById(int userId)
     {
         return _store.Users.FirstOrDefault(u => u.Id == userId)
-            ?? throw new KeyNotFoundException($"User with id {userId} was not found.");
+               ?? throw new UserNotFoundException($"User with id {userId} was not found.");
     }
 
     private EquipmentBase GetEquipmentById(int equipmentId)
     {
         return _store.EquipmentItems.FirstOrDefault(e => e.Id == equipmentId)
-            ?? throw new KeyNotFoundException($"Equipment with id {equipmentId} was not found.");
+               ?? throw new EquipmentNotFoundException($"Equipment with id {equipmentId} was not found.");
     }
 }

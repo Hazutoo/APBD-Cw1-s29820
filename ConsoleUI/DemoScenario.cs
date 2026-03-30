@@ -33,10 +33,17 @@ public class DemoScenario
 
         PrintUsers();
         PrintEquipment("Initial equipment list");
+        PrintAvailableEquipment("Available equipment at startup");
 
         ShowSuccessfulRental();
         ShowUnavailableEquipmentAttempt();
+
         ShowStudentLimitExceeded();
+        ShowActiveRentalsForUser(3);
+
+        ShowMarkAsUnavailable(4);
+        PrintAvailableEquipment("Available equipment after marking one item as unavailable");
+
         ShowOnTimeReturn();
         ShowLateReturnWithPenalty();
 
@@ -66,6 +73,7 @@ public class DemoScenario
         PrintHeader("Correct rental");
 
         var rental = _rentalService.RentEquipment(userId: 1, equipmentId: 1, days: 7);
+
         Console.WriteLine("Rental created successfully.");
         Console.WriteLine(rental);
         Console.WriteLine();
@@ -111,6 +119,38 @@ public class DemoScenario
         Console.WriteLine();
     }
 
+    private void ShowActiveRentalsForUser(int userId)
+    {
+        PrintHeader($"Active rentals for user {userId}");
+
+        var rentals = _rentalService.GetActiveRentalsForUser(userId);
+
+        if (rentals.Count == 0)
+        {
+            Console.WriteLine("No active rentals.");
+        }
+        else
+        {
+            foreach (var rental in rentals)
+            {
+                Console.WriteLine(rental);
+            }
+        }
+
+        Console.WriteLine();
+    }
+
+    private void ShowMarkAsUnavailable(int equipmentId)
+    {
+        PrintHeader("Mark equipment as unavailable");
+
+        _equipmentService.MarkAsUnavailable(equipmentId);
+
+        Console.WriteLine("Equipment status changed to unavailable:");
+        Console.WriteLine(_equipmentService.GetById(equipmentId));
+        Console.WriteLine();
+    }
+
     private void ShowOnTimeReturn()
     {
         PrintHeader("Return on time");
@@ -136,12 +176,38 @@ public class DemoScenario
 
         Console.WriteLine("Rental created for late return:");
         Console.WriteLine(lateRental);
+        Console.WriteLine();
+
+        ShowOverdueRentals(
+            lateRental.DueDate.AddHours(1),
+            "Overdue rentals before return");
 
         DateTime returnedAt = lateRental.DueDate.AddDays(2).AddHours(1);
         _rentalService.ReturnEquipment(lateRental.Id, returnedAt);
 
         Console.WriteLine("Returned after due date.");
         Console.WriteLine(lateRental);
+        Console.WriteLine();
+    }
+
+    private void ShowOverdueRentals(DateTime now, string title)
+    {
+        PrintHeader(title);
+
+        var overdueRentals = _rentalService.GetOverdueRentals(now);
+
+        if (overdueRentals.Count == 0)
+        {
+            Console.WriteLine("No overdue rentals.");
+        }
+        else
+        {
+            foreach (var rental in overdueRentals)
+            {
+                Console.WriteLine(rental);
+            }
+        }
+
         Console.WriteLine();
     }
 
@@ -162,6 +228,18 @@ public class DemoScenario
         PrintHeader(title);
 
         foreach (var item in _equipmentService.GetAllEquipment())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+    }
+
+    private void PrintAvailableEquipment(string title)
+    {
+        PrintHeader(title);
+
+        foreach (var item in _equipmentService.GetAvailableEquipment())
         {
             Console.WriteLine(item);
         }

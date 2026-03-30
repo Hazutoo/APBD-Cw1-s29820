@@ -1,5 +1,6 @@
 using APBD_Cw1_s29820.Data;
 using APBD_Cw1_s29820.Domain.Enums;
+using APBD_Cw1_s29820.Exceptions;
 using EquipmentBase = APBD_Cw1_s29820.Domain.Equipment.Equipment;
 
 namespace APBD_Cw1_s29820.Services;
@@ -42,7 +43,7 @@ public class EquipmentService : IEquipmentService
 
         if (equipment is null)
         {
-            throw new KeyNotFoundException($"Equipment with id {id} was not found.");
+            throw new EquipmentNotFoundException($"Equipment with id {id} was not found.");
         }
 
         return equipment;

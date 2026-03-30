@@ -37,6 +37,7 @@ dotnet run
 ```
 
 Po uruchomieniu aplikacja wykona scenariusz demonstracyjny i wypisze wynik w konsoli.
+Scenariusz pokazuje m.in. listę dostępnego sprzętu, poprawne wypożyczenie, próbę wypożyczenia niedostępnego sprzętu, przekroczenie limitu wypożyczeń, aktywne wypożyczenia użytkownika, oznaczenie sprzętu jako niedostępnego, przeterminowane wypożyczenia oraz raport końcowy.
 
 ---
 
