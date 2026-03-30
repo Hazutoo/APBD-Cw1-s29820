@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# User-specific
+*.user
+*.rsuser
+*.suo
+
+# OS files
+Thumbs.db
+.DS_Store
